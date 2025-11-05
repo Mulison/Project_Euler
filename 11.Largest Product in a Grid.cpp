@@ -29,6 +29,7 @@ int main()
   };
 
   int max = 0;
+  int m[4];
   // left right
   for (int i = 0; i <= N - 4 ; i ++)
   {
@@ -38,11 +39,17 @@ int main()
       if (value > max)
       {
         max = value;
+        m[0]=g[i][j];
+        m[1]=g[i][j+1];
+        m[2]=g[i][j+2];
+        m[3]=g[i][j+3];
       }
     }
   }
   cout << "left_right max = " << max << endl;
+  cout << "m[0] = " <<m[0] << ", m[1] = " <<m[1] <<", m[2] = " <<m[2] <<", m[3] = " <<m[3] <<endl;
 
+  // up down
   for (int i = 0; i < N ; i ++)
   {
     for (int j = 0; j <= N -4 ; j ++)
@@ -51,9 +58,56 @@ int main()
       if (value > max)
       {
         max = value;
+        m[0]=g[j][i];
+        m[1]=g[j+1][i];
+        m[2]=g[j+2][i];
+        m[3]=g[j+3][i];
       }
     }
   }
   cout << "Up_down max = " << max << endl;
+  cout << "m[0] = " <<m[0] << ", m[1] = " <<m[1] <<", m[2] = " <<m[2] <<", m[3] = " <<m[3] <<endl;
+
+  // main diagnoal 
+  int max_main_diagonal = 0;
+  for (int i = 0; i <= N - 4 ; i ++)
+  {
+    for (int j = 0; j <= N - 4 ; j ++)
+    {
+      int value = g[i][j]*g[i+1][j+1]*g[i+2][j+2]*g[i+3][j+3];
+      if (value > max_main_diagonal)
+      {
+        max_main_diagonal = value;
+        m[0]=g[i][j];
+        m[1]=g[i+1][j+1];
+        m[2]=g[i+2][j+2];
+        m[3]=g[i+3][j+3];
+      }
+    }
+  }
+  cout << "Main max_main_diagonal = " << max_main_diagonal << endl;
+  cout << "m[0] = " <<m[0] << ", m[1] = " <<m[1] <<", m[2] = " <<m[2] <<", m[3] = " <<m[3] <<endl;
+
+  // anti-diagnoal 
+  // the most challenge part
+  // be very careful regarding the iteration incrementation and decrementation of the grid
+  int max_anti_diagonal = 0;
+  for (int i = 0; i < N-4 ; i++)
+  {
+    for (int j = 3; j < N ; j++)
+    {
+      int value = g[i][j]*g[i+1][j-1]*g[i+2][j-2]*g[i+3][j-3];
+      if (value > max_anti_diagonal)
+      {
+        max_anti_diagonal = value;
+        m[0]=g[i][j];
+        m[1]=g[i+1][j-1];
+        m[2]=g[i+2][j-2];
+        m[3]=g[i+3][j-3];
+      }
+    }
+  }
+  cout << "Max max_anti-diagonal= " << max_anti_diagonal << endl;
+  cout << "m[0] = " <<m[0] << ", m[1] = " <<m[1] <<", m[2] = " <<m[2] <<", m[3] = " <<m[3] <<endl;
 
 }
